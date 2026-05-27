@@ -8,8 +8,10 @@ if [ -f /data/params ]; then
     set +a
 fi
 
-MYSQL_HOST="${DB_HOST:-mysql}"
-MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD:-RoboShop@1}"
+: "${DB_HOST:?DB_HOST is required}"
+: "${MYSQL_ROOT_PASSWORD:?MYSQL_ROOT_PASSWORD is required}"
+
+MYSQL_HOST="${DB_HOST}"
 
 echo "Waiting for MySQL at ${MYSQL_HOST}..."
 until mysqladmin ping -h "$MYSQL_HOST" -uroot -p"$MYSQL_ROOT_PASSWORD" --silent; do

@@ -8,9 +8,11 @@ if [ -f /data/params ]; then
     set +a
 fi
 
-export DB_HOST="${DB_HOST:-mysql}"
-export DB_USER="${DB_USER:-shipping}"
-export DB_PASS="${DB_PASS:-RoboShop@1}"
-export PORT="${PORT:-8080}"
+: "${DB_HOST:?DB_HOST is required}"
+: "${DB_USER:?DB_USER is required}"
+: "${DB_PASS:?DB_PASS is required}"
+: "${PORT:?PORT is required}"
+
+export DB_HOST DB_USER DB_PASS PORT
 
 exec java -jar shipping.jar
